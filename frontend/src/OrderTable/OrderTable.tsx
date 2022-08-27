@@ -2,6 +2,7 @@ import { FC } from 'react'
 import styled from 'styled-components'
 
 import { Order } from '../types'
+import { PriceCell } from './Cells'
 
 const NoOrdersFoundWrapper = styled.h2`
   margin: 80px;
@@ -31,7 +32,7 @@ export const OrderTable: FC<OrderTableProps> = ({ orders }) => {
         {orders.map((order: Order) => (
           <tr key={order.id}>
             <th scope="row">{order.customer}</th>
-            <td>${order.price / 100}</td>
+            <PriceCell price={order.price} />
             <td>{order.item}</td>
             <td>{order.destination}</td>
           </tr>
