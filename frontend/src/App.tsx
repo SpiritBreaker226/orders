@@ -5,6 +5,7 @@ import { OrderTable } from './OrderTable'
 import { Order } from './types'
 import { Search } from './Search'
 import { getOrders } from './helpers'
+import { AppProvider } from './contexts'
 
 const AppContainer = styled.div`
   text-align: center;
@@ -30,17 +31,19 @@ const App = () => {
   }, [setOrders])
 
   return (
-    <AppContainer>
-      <AppHeader>
-        <h1>CloudKitchens</h1>
+    <AppProvider>
+      <AppContainer>
+        <AppHeader>
+          <h1>CloudKitchens</h1>
 
-        <Search />
-      </AppHeader>
+          <Search />
+        </AppHeader>
 
-      <AppBody>
-        <OrderTable orders={orders} />
-      </AppBody>
-    </AppContainer>
+        <AppBody>
+          <OrderTable orders={orders} />
+        </AppBody>
+      </AppContainer>
+    </AppProvider>
   )
 }
 
