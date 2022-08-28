@@ -2,7 +2,7 @@ import { FC } from 'react'
 import styled from 'styled-components'
 
 import { Order } from '../types'
-import { PriceCell } from './Cells'
+import { CustomerCell, DestinationCell, ItemCell, PriceCell } from './Cells'
 
 const NoOrdersFoundWrapper = styled.h2`
   margin: 80px;
@@ -44,7 +44,6 @@ const OrdersTableBody = styled.tbody`
     text-align: left;
     font-weight: 400;
     border-bottom: 1px solid rgba(81, 81, 81, 1);
-    width: 25%;
   }
 `
 
@@ -70,10 +69,10 @@ export const OrderTable: FC<OrderTableProps> = ({ orders }) => {
       <OrdersTableBody>
         {orders.map((order: Order) => (
           <tr key={order.id}>
-            <td>{order.customer}</td>
+            <CustomerCell customer={order.customer} />
             <PriceCell price={order.price} />
-            <td>{order.item}</td>
-            <td>{order.destination}</td>
+            <ItemCell item={order.item} />
+            <DestinationCell destination={order.destination} />
           </tr>
         ))}
       </OrdersTableBody>
