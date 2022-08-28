@@ -9,3 +9,5 @@ export type Order = {
   destination: string
   sent_at_second: number
 }
+
+export type OrderObject = { [key: string]: Order }

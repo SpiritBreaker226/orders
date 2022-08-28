@@ -1,22 +1,36 @@
 import styled from 'styled-components'
-import { FC, useState } from 'react'
+import { FC, useCallback, useContext, useEffect } from 'react'
 
 import { getOrders } from './helpers'
 import { OrderTable } from '../OrderTable'
-import { Order } from '../types'
+import { Types } from '../types'
+import { AppContext } from '../contexts'
 
 const AppBodyConainer = styled.main`
   margin: 0 16px 16px;
 `
 
 export const AppBody: FC = () => {
-  const [orders, setOrders] = useState<Order[]>([])
+  const {
+    state: { orders },
+    dispatch,
+  } = useContext(AppContext)
+  const dispatchOrders = useCallback(() => {
+    getOrders((orders) =>
+      dispatch({
+        type: Types.ModifyOrders,
+        payload: { orders },
+      })
+    )
+  }, [dispatch])
 
-  getOrders((ordersFromServer) => setOrders(ordersFromServer))
+  useEffect(() => {
+    dispatchOrders()
+  }, [dispatchOrders])
 
   return (
     <AppBodyConainer>
-      <OrderTable orders={orders} />
+      <OrderTable orders={Object.values(orders)} />
     </AppBodyConainer>
   )
 }
