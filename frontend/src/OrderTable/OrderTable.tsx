@@ -53,6 +53,11 @@ const OrdersTableBody = styled.tbody`
   }
 `
 
+const NumberOfOrders = styled.div`
+  padding-bottom: 8px;
+  text-align: right;
+`
+
 export type OrderTableProps = {
   orders: Order[]
 }
@@ -61,29 +66,36 @@ export const OrderTable: FC<OrderTableProps> = ({ orders }) => {
   if (orders.length === 0) {
     return <NoOrdersFoundWrapper>No Orders Found</NoOrdersFoundWrapper>
   }
+  const numberOfOrderText = `number of order${orders.length > 1 ? 's' : ''}`
 
   return (
-    <OrdersTable>
-      <OrdersTableHeader>
-        <tr>
-          <th scope="col">Customer</th>
-          <th scope="col">Status</th>
-          <th scope="col">Price</th>
-          <th scope="col">Item</th>
-          <th scope="col">Destination</th>
-        </tr>
-      </OrdersTableHeader>
-      <OrdersTableBody>
-        {orders.map((order: Order) => (
-          <tr key={order.id}>
-            <CustomerCell customer={order.customer} />
-            <StatusCell status={order.event_name} />
-            <PriceCell price={order.price} />
-            <ItemCell item={order.item} />
-            <DestinationCell destination={order.destination} />
+    <section>
+      <NumberOfOrders>
+        {orders.length} {numberOfOrderText}
+      </NumberOfOrders>
+
+      <OrdersTable>
+        <OrdersTableHeader>
+          <tr>
+            <th scope="col">Customer</th>
+            <th scope="col">Status</th>
+            <th scope="col">Price</th>
+            <th scope="col">Item</th>
+            <th scope="col">Destination</th>
           </tr>
-        ))}
-      </OrdersTableBody>
-    </OrdersTable>
+        </OrdersTableHeader>
+        <OrdersTableBody>
+          {orders.map((order: Order) => (
+            <tr key={order.id}>
+              <CustomerCell customer={order.customer} />
+              <StatusCell status={order.event_name} />
+              <PriceCell price={order.price} />
+              <ItemCell item={order.item} />
+              <DestinationCell destination={order.destination} />
+            </tr>
+          ))}
+        </OrdersTableBody>
+      </OrdersTable>
+    </section>
   )
 }
