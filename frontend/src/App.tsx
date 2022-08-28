@@ -1,9 +1,10 @@
 import styled from 'styled-components'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { OrderTable } from './OrderTable'
 import { Order } from './types'
 import { Search } from './Search'
+import { getOrders } from './helpers'
 
 const AppContainer = styled.div`
   text-align: center;
@@ -23,6 +24,10 @@ const AppBody = styled.main`
 
 const App = () => {
   const [orders, setOrders] = useState<Order[]>([])
+
+  useEffect(() => {
+    getOrders((ordersFromServer) => setOrders(ordersFromServer))
+  }, [setOrders])
 
   return (
     <AppContainer>
