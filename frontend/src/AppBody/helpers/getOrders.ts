@@ -1,6 +1,6 @@
 import { io } from 'socket.io-client'
 
-import { Order } from '../types'
+import { Order } from '../../types'
 
 const socket = io(`${process.env.REACT_APP_SERVER_URL}`)
 
