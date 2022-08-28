@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import { Order } from '../../types'
 
 const OrdersTableCell = styled.td`
-  width: 30%;
+  width: 20%;
 `
 
 export type CustomerCellProps = {
