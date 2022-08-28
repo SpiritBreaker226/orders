@@ -1,24 +1,41 @@
-import logo from './logo.svg'
-import './App.css'
+import styled from 'styled-components'
+import { useState } from 'react'
 
-function App() {
+import { OrderTable } from './OrderTable'
+import { Order } from './types'
+import { Search } from './Search'
+
+const AppContainer = styled.div`
+  text-align: center;
+`
+
+const AppHeader = styled.header`
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 8px;
+`
+
+const AppBody = styled.main`
+  margin: 0 16px 16px;
+`
+
+const App = () => {
+  const [orders, setOrders] = useState<Order[]>([])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AppContainer>
+      <AppHeader>
+        <h1>CloudKitchens</h1>
+
+        <Search />
+      </AppHeader>
+
+      <AppBody>
+        <OrderTable orders={orders} />
+      </AppBody>
+    </AppContainer>
   )
 }
 
