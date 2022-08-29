@@ -12,9 +12,12 @@ const AppBodyConainer = styled.main`
 
 export const AppBody: FC = () => {
   const {
-    state: { orders },
+    state: { orders: nonFillterOrders, filteredOrders },
     dispatch,
   } = useContext(AppContext)
+  const orders = filteredOrders.length
+    ? filteredOrders
+    : Object.values(nonFillterOrders)
   const dispatchOrders = useCallback(() => {
     getOrders((orders) =>
       dispatch({
@@ -30,7 +33,7 @@ export const AppBody: FC = () => {
 
   return (
     <AppBodyConainer>
-      <OrderTable orders={Object.values(orders)} />
+      <OrderTable orders={orders} />
     </AppBodyConainer>
   )
 }

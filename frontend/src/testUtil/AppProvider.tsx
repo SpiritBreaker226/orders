@@ -4,6 +4,7 @@ import { Action, InitialState } from '../types'
 
 export const initialState: InitialState = {
   orders: {},
+  filteredOrders: [],
   searchText: '',
 }
 

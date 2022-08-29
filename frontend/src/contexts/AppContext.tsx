@@ -5,6 +5,7 @@ import { ordersReducer, searchReducer } from '../reducers'
 
 export const initialState: InitialState = {
   orders: {},
+  filteredOrders: [],
   searchText: '',
 }
 

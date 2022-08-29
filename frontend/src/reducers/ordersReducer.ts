@@ -8,6 +8,17 @@ export const ordersReducer = (state: InitialState, action: Action) => {
         newOrders[order.id] = { ...order }
       })
 
+      if (state.searchText) {
+        state.filteredOrders = Object.values(newOrders).filter((order) => {
+          const formattedPrice = new Intl.NumberFormat('en-US', {
+            style: 'currency',
+            currency: 'USD',
+          }).format(order.price / 100)
+
+          return state.searchText === formattedPrice
+        })
+      }
+
       return {
         ...state,
         orders: newOrders,
