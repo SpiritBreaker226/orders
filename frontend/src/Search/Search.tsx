@@ -2,7 +2,7 @@ import { ChangeEvent, FC, useState } from 'react'
 import styled from 'styled-components'
 
 import { Textbox } from './Textbox'
-import { debounce, searchForOrders } from './helpers'
+import { debounce, isCurrency, searchForOrders } from './helpers'
 
 const DELAY_BEFORE_SEARCH = 2000
 
@@ -14,8 +14,22 @@ export const Search: FC = () => {
   const [errorMessage, setErrorMessage] = useState('')
   const onError = (errorMessageFromServer: string) =>
     setErrorMessage(errorMessageFromServer)
-  const debounceFn = debounce(searchForOrders, DELAY_BEFORE_SEARCH)
+  const debounceCallback = (searchText: string, onError: () => void) => {
+    if (searchText === '') {
+      return
+    }
+
+    if (!isCurrency(searchText)) {
+      setErrorMessage('Error: Search must format ###.## i.e. 6.00')
+      return
+    }
+
+    searchForOrders(searchText, onError)
+  }
+  const debounceFn = debounce(debounceCallback, DELAY_BEFORE_SEARCH)
   const handleTextChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setErrorMessage('')
+
     debounceFn(e.target.value.trim(), onError)
   }
 
@@ -24,7 +38,7 @@ export const Search: FC = () => {
       <Textbox
         id="order"
         inputProps={{
-          placeholder: 'Enter order',
+          placeholder: 'Search for price',
           onChange: handleTextChange,
         }}
         errorMessage={errorMessage}
