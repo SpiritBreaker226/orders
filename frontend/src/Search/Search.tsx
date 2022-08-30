@@ -31,6 +31,7 @@ export const Search: FC = () => {
       type: Types.UpdateSearchText,
       payload: { searchText: value.trim() },
     })
+    dispatch({ type: Types.Search, payload: {} })
   }
 
   return (

@@ -12,7 +12,7 @@ const AppBodyConainer = styled.main`
 
 export const AppBody: FC = () => {
   const {
-    state: { orders: nonFillterOrders, filteredOrders },
+    state: { orders: nonFillterOrders, filteredOrders, searchText },
     dispatch,
   } = useContext(AppContext)
   const orders = filteredOrders.length
@@ -25,6 +25,10 @@ export const AppBody: FC = () => {
         payload: { orders },
       })
     )
+
+    if (searchText.length) {
+      dispatch({ type: Types.Search, payload: {} })
+    }
   }, [dispatch])
 
   useEffect(() => {

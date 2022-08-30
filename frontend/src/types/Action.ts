@@ -3,6 +3,7 @@ import { Order } from './Order'
 export enum Types {
   ModifyOrders = 'MODIFY_ORDERS',
   UpdateSearchText = 'UPDATE_SEARCH_TEXT',
+  Search = 'SEARCH',
 }
 
 interface OrdersPayload {
@@ -12,6 +13,7 @@ interface OrdersPayload {
 }
 
 type SearchPayload = {
+  [Types.Search]: {}
   [Types.UpdateSearchText]: {
     searchText: string
   }

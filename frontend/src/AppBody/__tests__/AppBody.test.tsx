@@ -5,10 +5,23 @@ import { EventName, InitialState } from '../../types'
 
 import { AppBody } from '../AppBody'
 
+// TODO make sure that the dispatch is epxect tobe called
+
+const mockDispatch = jest.fn()
+const mockGetOrders = jest.fn()
+
+jest.mock('../helpers', () => ({
+  ...jest.requireActual('../helpers'),
+  getOrders: () => mockGetOrders,
+}))
+
 describe('AppBody', () => {
-  const setUp = (state: Partial<InitialState> = {}) => {
+  const setUp = (
+    state: Partial<InitialState> = {},
+    dispatch = mockDispatch
+  ) => {
     render(
-      <AppProvider state={{ ...initialState, ...state }}>
+      <AppProvider state={{ ...initialState, ...state }} dispatch={dispatch}>
         <AppBody />
       </AppProvider>
     )
@@ -85,6 +98,7 @@ describe('AppBody', () => {
           sent_at_second: 36,
         },
       ],
+      searchText: '10.24',
     })
 
     expect(screen.queryAllByText('$7.20').length).toEqual(0)
