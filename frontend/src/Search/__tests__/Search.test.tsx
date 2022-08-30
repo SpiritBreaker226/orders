@@ -6,20 +6,22 @@ import { InitialState } from '../../types'
 import { Search } from '../Search'
 
 let mockIsCurrency = false
-const mockSearchForOrders = jest.fn()
+const mockDispatch = jest.fn()
 
 jest.mock('../helpers', () => ({
   ...jest.requireActual('../helpers'),
   isCurrency: () => mockIsCurrency,
-  searchForOrders: () => mockSearchForOrders,
 }))
 
 jest.useFakeTimers()
 
 describe('Search', () => {
-  const setUp = (state: Partial<InitialState> = {}) => {
+  const setUp = (
+    state: Partial<InitialState> = {},
+    dispatch = mockDispatch
+  ) => {
     render(
-      <AppProvider state={{ ...initialState, ...state }}>
+      <AppProvider state={{ ...initialState, ...state }} dispatch={dispatch}>
         <Search />
       </AppProvider>
     )
@@ -27,6 +29,24 @@ describe('Search', () => {
 
   beforeEach(() => {
     mockIsCurrency = false
+  })
+
+  describe('when text is a proper format currecy', () => {
+    it('should call debounce', async () => {
+      mockIsCurrency = true
+
+      setUp()
+
+      fireEvent.change(await screen.findByRole('textbox'), {
+        target: { value: '$5.12' },
+      })
+
+      jest.runAllTimers()
+
+      await waitFor(() => {
+        expect(mockDispatch).toBeCalled()
+      })
+    })
   })
 
   it('should show error message on not formated as a currency', async () => {

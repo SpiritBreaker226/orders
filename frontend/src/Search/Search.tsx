@@ -1,8 +1,10 @@
-import { ChangeEvent, FC, useState } from 'react'
+import { ChangeEvent, FC, useContext, useState } from 'react'
 import styled from 'styled-components'
 
 import { Textbox } from './Textbox'
-import { debounce, isCurrency, searchForOrders } from './helpers'
+import { debounce, isCurrency } from './helpers'
+import { AppContext } from '../contexts'
+import { Types } from '../types'
 
 const DELAY_BEFORE_SEARCH = 2000
 
@@ -12,9 +14,12 @@ const SearchContainer = styled.section`
 
 export const Search: FC = () => {
   const [errorMessage, setErrorMessage] = useState('')
-  const onError = (errorMessageFromServer: string) =>
-    setErrorMessage(errorMessageFromServer)
-  const debounceCallback = (searchText: string, onError: () => void) => {
+  const {
+    state: { searchText },
+    dispatch,
+  } = useContext(AppContext)
+
+  const debounceCallback = (searchText: string) => {
     if (searchText === '') {
       return
     }
@@ -24,13 +29,16 @@ export const Search: FC = () => {
       return
     }
 
-    searchForOrders(searchText, onError)
+    dispatch({
+      type: Types.UpdateSearchText,
+      payload: { searchText },
+    })
   }
   const debounceFn = debounce(debounceCallback, DELAY_BEFORE_SEARCH)
   const handleTextChange = (e: ChangeEvent<HTMLInputElement>) => {
     setErrorMessage('')
 
-    debounceFn(e.target.value.trim(), onError)
+    debounceFn(e.target.value.trim())
   }
 
   return (
@@ -38,6 +46,7 @@ export const Search: FC = () => {
       <Textbox
         id="order"
         inputProps={{
+          value: searchText,
           placeholder: 'Search for price',
           onChange: handleTextChange,
         }}
