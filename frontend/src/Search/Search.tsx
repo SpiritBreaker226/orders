@@ -2,11 +2,9 @@ import { ChangeEvent, FC, useContext, useState } from 'react'
 import styled from 'styled-components'
 
 import { Textbox } from './Textbox'
-import { debounce, isCurrency } from './helpers'
+import { isCurrency } from './helpers'
 import { AppContext } from '../contexts'
 import { Types } from '../types'
-
-const DELAY_BEFORE_SEARCH = 2000
 
 const SearchContainer = styled.section`
   text-align: right;
@@ -18,27 +16,22 @@ export const Search: FC = () => {
     state: { searchText },
     dispatch,
   } = useContext(AppContext)
+  const handleTextChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setErrorMessage('')
 
-  const debounceCallback = (searchText: string) => {
-    if (searchText === '') {
+    if (e.target.value === '') {
       return
     }
 
-    if (!isCurrency(searchText)) {
+    if (!isCurrency(e.target.value)) {
       setErrorMessage('Error: Search must format ###.## i.e. 6.00')
       return
     }
 
     dispatch({
       type: Types.UpdateSearchText,
-      payload: { searchText },
+      payload: { searchText: e.target.value },
     })
-  }
-  const debounceFn = debounce(debounceCallback, DELAY_BEFORE_SEARCH)
-  const handleTextChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setErrorMessage('')
-
-    debounceFn(e.target.value.trim())
   }
 
   return (

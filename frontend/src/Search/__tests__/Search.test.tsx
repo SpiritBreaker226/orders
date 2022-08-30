@@ -32,7 +32,7 @@ describe('Search', () => {
   })
 
   describe('when text is a proper format currecy', () => {
-    it('should call debounce', async () => {
+    it('should call dispatch', async () => {
       mockIsCurrency = true
 
       setUp()
@@ -41,11 +41,7 @@ describe('Search', () => {
         target: { value: '$5.12' },
       })
 
-      jest.runAllTimers()
-
-      await waitFor(() => {
-        expect(mockDispatch).toBeCalled()
-      })
+      expect(mockDispatch).toBeCalled()
     })
   })
 
@@ -56,11 +52,7 @@ describe('Search', () => {
       target: { value: 'really' },
     })
 
-    jest.runAllTimers()
-
-    await waitFor(() => {
-      screen.getByText('format ###.##', { exact: false })
-    })
+    screen.getByText('format ###.##', { exact: false })
   })
 
   it('should not show error message or call debounce on empty string', async () => {
@@ -76,8 +68,6 @@ describe('Search', () => {
       target: { value: '' },
     })
 
-    expect(
-      screen.queryByText('format of ###.##', { exact: false })
-    ).not.toBeInTheDocument()
+    screen.getByText('format ###.##', { exact: false })
   })
 })
