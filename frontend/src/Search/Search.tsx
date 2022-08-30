@@ -16,21 +16,20 @@ export const Search: FC = () => {
     state: { searchText },
     dispatch,
   } = useContext(AppContext)
+
   const handleTextChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target
+
     setErrorMessage('')
 
-    if (e.target.value === '') {
-      return
-    }
-
-    if (!isCurrency(e.target.value)) {
+    if (!isCurrency(value) && value.trim() !== '') {
       setErrorMessage('Error: Search must format ###.## i.e. 6.00')
       return
     }
 
     dispatch({
       type: Types.UpdateSearchText,
-      payload: { searchText: e.target.value },
+      payload: { searchText: value.trim() },
     })
   }
 

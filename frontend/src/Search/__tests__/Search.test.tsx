@@ -55,19 +55,17 @@ describe('Search', () => {
     screen.getByText('format ###.##', { exact: false })
   })
 
-  it('should not show error message or call debounce on empty string', async () => {
-    setUp()
+  describe('after deleting its value', () => {
+    it('should have an empty value with no error message', async () => {
+      setUp()
 
-    fireEvent.change(await screen.findByRole('textbox'), {
-      target: { value: 'really' },
+      fireEvent.change(await screen.findByRole('textbox'), {
+        target: { value: ' ' },
+      })
+
+      expect(
+        screen.queryByText('format ###.##', { exact: false })
+      ).not.toBeInTheDocument()
     })
-
-    jest.runAllTimers()
-
-    fireEvent.change(await screen.findByRole('textbox'), {
-      target: { value: '' },
-    })
-
-    screen.getByText('format ###.##', { exact: false })
   })
 })
