@@ -5,6 +5,7 @@ import { getOrders } from './helpers'
 import { OrderTable } from '../OrderTable'
 import { Types } from '../types'
 import { AppContext } from '../contexts'
+import cachingOrders from '../cache/cachingOrders'
 
 const AppBodyConainer = styled.main`
   margin: 0 16px 16px;
@@ -19,12 +20,14 @@ export const AppBody: FC = () => {
     ? filteredOrders
     : Object.values(nonFillterOrders)
   const dispatchOrders = useCallback(() => {
-    getOrders((orders) =>
+    getOrders((orders) => {
       dispatch({
         type: Types.ModifyOrders,
         payload: { orders },
       })
-    )
+
+      cachingOrders.bulkModifyCache(orders)
+    })
 
     if (searchText.length) {
       dispatch({ type: Types.Search, payload: {} })
