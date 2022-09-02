@@ -16,9 +16,7 @@ export const AppBody: FC = () => {
     state: { orders: nonFillterOrders, filteredOrders, searchText },
     dispatch,
   } = useContext(AppContext)
-  const orders = filteredOrders.length
-    ? filteredOrders
-    : Object.values(nonFillterOrders)
+  const orders = searchText ? filteredOrders : Object.values(nonFillterOrders)
   const dispatchOrders = useCallback(() => {
     getOrders((orders) => {
       dispatch({
