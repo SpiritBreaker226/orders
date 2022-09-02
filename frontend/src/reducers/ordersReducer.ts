@@ -1,4 +1,4 @@
-import { Action, InitialState, Types } from '../types'
+import { Action, EventName, InitialState, Types } from '../types'
 
 export const ordersReducer = (state: InitialState, action: Action) => {
   switch (action.type) {
@@ -12,6 +12,23 @@ export const ordersReducer = (state: InitialState, action: Action) => {
       return {
         ...state,
         orders,
+      }
+    case Types.RemoveComplatedOrders:
+      const updatedOrders = { ...state.orders }
+
+      action.payload.orders.forEach((order) => {
+        if (
+          (updatedOrders[order.id] &&
+            order.event_name === EventName.DELIVERED) ||
+          (updatedOrders[order.id] && order.event_name === EventName.CANCELLED)
+        ) {
+          delete updatedOrders[order.id]
+        }
+      })
+
+      return {
+        ...state,
+        orders: updatedOrders,
       }
     default:
       return state

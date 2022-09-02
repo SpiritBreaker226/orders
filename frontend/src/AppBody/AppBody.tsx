@@ -26,6 +26,11 @@ export const AppBody: FC = () => {
         payload: { orders },
       })
 
+      dispatch({
+        type: Types.RemoveComplatedOrders,
+        payload: { orders },
+      })
+
       cachingOrders.bulkModifyCache(orders)
     })
 

@@ -2,12 +2,16 @@ import { Order } from './Order'
 
 export enum Types {
   ModifyOrders = 'MODIFY_ORDERS',
+  RemoveComplatedOrders = 'REMOVE_DELIVERS_ORDERS',
   UpdateSearchText = 'UPDATE_SEARCH_TEXT',
   Search = 'SEARCH',
 }
 
 interface OrdersPayload {
   [Types.ModifyOrders]: {
+    orders: Order[]
+  }
+  [Types.RemoveComplatedOrders]: {
     orders: Order[]
   }
 }
