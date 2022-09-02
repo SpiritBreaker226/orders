@@ -8,7 +8,7 @@ import { AppContext } from '../contexts'
 import cachingOrders from '../cache/cachingOrders'
 
 const AppBodyConainer = styled.main`
-  margin: 0 16px 16px;
+  margin: 112px 16px 16px;
 `
 
 export const AppBody: FC = () => {

@@ -5,12 +5,21 @@ import { AppContext } from './contexts'
 import { Search } from './Search'
 
 const HeaderContainer = styled.div`
-  padding: 0 8px;
+  position: fixed;
+  top: 0;
+  z-index: 20;
+  width: 100%;
+  transition: all 0.3s linear 0s;
+  background: #f8f6eb;
+  border-bottom: 1px solid rgba(81, 81, 81, 1);
+`
+
+const HeaderContent = styled.div`
+  padding: 0 12px;
 `
 
 const Header = styled.header`
   display: flex;
-  gap: 16px;
   align-items: center;
   justify-content: space-between;
 
@@ -20,7 +29,7 @@ const Header = styled.header`
 `
 
 const NumberOfOrders = styled.div`
-  padding-bottom: 8px;
+  padding-bottom: 12px;
   text-align: right;
 `
 
@@ -33,15 +42,17 @@ export const AppHeader: FC = () => {
 
   return (
     <HeaderContainer>
-      <Header>
-        <h1>CloudKitchens</h1>
+      <HeaderContent>
+        <Header>
+          <h1>CloudKitchens</h1>
 
-        <Search />
-      </Header>
+          <Search />
+        </Header>
 
-      <NumberOfOrders>
-        {orders.length} {numberOfOrderText}
-      </NumberOfOrders>
+        <NumberOfOrders>
+          {orders.length} {numberOfOrderText}
+        </NumberOfOrders>
+      </HeaderContent>
     </HeaderContainer>
   )
 }
