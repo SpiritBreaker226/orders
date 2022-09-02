@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import { FC, useCallback, useContext, useEffect } from 'react'
 
 import { getOrders } from './helpers'
-import { OrderTable } from './Components'
+import { Message, OrderTable } from './Components'
 import { Types } from '../types'
 import { AppContext } from '../contexts'
 import cachingOrders from '../cache/cachingOrders'
@@ -45,7 +45,11 @@ export const AppBody: FC = () => {
 
   return (
     <AppBodyConainer>
-      <OrderTable orders={orders} />
+      {orders.length ? (
+        <OrderTable orders={orders} />
+      ) : (
+        <Message hasNoOrdersInSearch={!!searchText} />
+      )}
     </AppBodyConainer>
   )
 }

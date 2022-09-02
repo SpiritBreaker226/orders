@@ -60,12 +60,4 @@ describe('OrderTable', () => {
       await screen.findByText('2 number of orders')
     })
   })
-
-  describe('when no orders are found', () => {
-    it('should show not found message', async () => {
-      setUp()
-
-      await screen.findByText('No Orders Found', { exact: false })
-    })
-  })
 })

@@ -10,11 +10,6 @@ import {
   StatusCell,
 } from './Cells'
 
-const NoOrdersFoundWrapper = styled.h2`
-  margin: 80px;
-  textalign: center;
-`
-
 const OrdersTable = styled.table`
   width: 100%;
   display: table;
@@ -63,9 +58,6 @@ export type OrderTableProps = {
 }
 
 export const OrderTable: FC<OrderTableProps> = ({ orders }) => {
-  if (orders.length === 0) {
-    return <NoOrdersFoundWrapper>No Orders Found</NoOrdersFoundWrapper>
-  }
   const numberOfOrderText = `number of order${orders.length > 1 ? 's' : ''}`
 
   return (

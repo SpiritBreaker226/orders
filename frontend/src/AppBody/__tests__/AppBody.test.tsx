@@ -104,4 +104,26 @@ describe('AppBody', () => {
     expect(screen.queryAllByText('$7.20').length).toEqual(0)
     expect((await screen.findAllByText('$10.24')).length).toEqual(2)
   })
+
+  describe('when there is no orders', () => {
+    it('should display No Order Message on search text', async () => {
+      setUp({
+        orders: {},
+        filteredOrders: [],
+        searchText: '10.24',
+      })
+
+      await screen.findByText('No Orders Found', { exact: false })
+    })
+
+    it('should display Waiting for order on no search textt', async () => {
+      setUp({
+        orders: {},
+        filteredOrders: [],
+        searchText: '',
+      })
+
+      await screen.findByText('Waiting for more orders', { exact: false })
+    })
+  })
 })
