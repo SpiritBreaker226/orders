@@ -36,6 +36,14 @@ class CachingOrders {
   resetCache() {
     this.orderCache = null
   }
+
+  searchCacheByPrice(price: number): Order[] {
+    if (!this.orderCache) {
+      return []
+    }
+
+    return this.orderCache.find(price)
+  }
 }
 
 // Use a singleton here so that there is one Cache Object in use

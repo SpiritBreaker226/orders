@@ -7,15 +7,11 @@ export const searchReducer = (state: InitialState, action: Action) => {
     // orders which could have the same price
     case Types.ModifyOrders:
     case Types.Search:
-      const cacheOrders = cachingOrders.getCache()
-
       return {
         ...state,
-        filteredOrders: cacheOrders
-          ? cacheOrders.find(
-              Number(Number(Number(state.searchText) * 100).toFixed())
-            )
-          : [],
+        filteredOrders: cachingOrders.searchCacheByPrice(
+          Number(Number(Number(state.searchText) * 100).toFixed())
+        ),
       }
     case Types.UpdateSearchText:
       return {
