@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react'
-import { EventName } from '../../types'
+import { EventName } from '../../../../types'
 
 import { OrderTable, OrderTableProps } from '../OrderTable'
 
@@ -15,7 +15,7 @@ describe('OrderTable', () => {
     setUp({
       orders: [
         {
-          id: 'dfsajkllf423',
+          id: '89170234',
           event_name: EventName.CREATED,
           price: 1024,
           item: 'Pizza',
@@ -37,7 +37,7 @@ describe('OrderTable', () => {
       setUp({
         orders: [
           {
-            id: 'dfsajkllf423',
+            id: '89170234',
             event_name: EventName.CREATED,
             price: 1024,
             item: 'Pizza',
@@ -46,7 +46,7 @@ describe('OrderTable', () => {
             sent_at_second: 36,
           },
           {
-            id: 'asdf',
+            id: '18094723',
             event_name: EventName.CREATED,
             price: 1024,
             item: 'Pizza',

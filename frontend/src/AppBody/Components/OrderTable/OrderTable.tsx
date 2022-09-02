@@ -1,7 +1,7 @@
 import { FC } from 'react'
 import styled from 'styled-components'
 
-import { Order } from '../types'
+import { Order } from '../../../types'
 import {
   CustomerCell,
   DestinationCell,

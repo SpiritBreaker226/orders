@@ -1,7 +1,7 @@
 import { FC } from 'react'
 import styled from 'styled-components'
 
-import { EventName, Order } from '../../types'
+import { EventName, Order } from '../../../../types'
 
 const OrdersTableCell = styled.td`
   width: 10%;

@@ -1,8 +1,8 @@
 import { FC } from 'react'
 import styled from 'styled-components'
-import { formatCurrency } from '../../helpers'
+import { formatCurrency } from '../../../../helpers'
 
-import { Order } from '../../types'
+import { Order } from '../../../../types'
 
 const OrdersTableCell = styled.td`
   width: 10%;
