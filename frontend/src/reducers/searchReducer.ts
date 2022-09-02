@@ -6,7 +6,9 @@ export const searchReducer = (state: InitialState, action: Action) => {
     case Types.Search:
       const cacheOrders = cachingOrders.getCache()
       const filteredOrders = cacheOrders
-        ? cacheOrders.find(Number(state.searchText) * 100)
+        ? cacheOrders.find(
+            Number(Number(Number(state.searchText) * 100).toFixed())
+          )
         : []
 
       return {
