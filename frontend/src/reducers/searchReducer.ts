@@ -3,9 +3,10 @@ import cachingOrders from '../cache/cachingOrders'
 
 export const searchReducer = (state: InitialState, action: Action) => {
   switch (action.type) {
+    case Types.ModifyOrders:
     case Types.Search:
       const cacheOrders = cachingOrders.getCache()
-      const filteredOrders = cacheOrders
+      const filteredCacheOrders = cacheOrders
         ? cacheOrders.find(
             Number(Number(Number(state.searchText) * 100).toFixed())
           )
@@ -13,7 +14,9 @@ export const searchReducer = (state: InitialState, action: Action) => {
 
       return {
         ...state,
-        filteredOrders,
+        filteredOrders: filteredCacheOrders.length
+          ? filteredCacheOrders.map((order) => state.orders[order.id] || order)
+          : [],
       }
     case Types.UpdateSearchText:
       return {
