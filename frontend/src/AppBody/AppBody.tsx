@@ -19,6 +19,10 @@ export const AppBody: FC = () => {
   const orders = searchText ? filteredOrders : Object.values(nonFillterOrders)
   const dispatchOrders = useCallback(() => {
     getOrders((orders) => {
+      // update cache first so that any new orders can be display in the search
+      // if it meets the search criteria
+      cachingOrders.bulkModifyCache(orders)
+
       dispatch({
         type: Types.ModifyOrders,
         payload: { orders },
@@ -28,8 +32,6 @@ export const AppBody: FC = () => {
         type: Types.RemoveComplatedOrders,
         payload: { orders },
       })
-
-      cachingOrders.bulkModifyCache(orders)
     })
 
     if (searchText.length) {
