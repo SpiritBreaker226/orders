@@ -1,7 +1,7 @@
 import { FC, createContext, Dispatch, useReducer, ReactNode } from 'react'
 
 import { InitialState, Action } from '../types'
-import { ordersReducer, searchReducer } from '../reducers'
+import { combineReducer, ordersReducer, searchReducer } from '../reducers'
 
 export const initialState: InitialState = {
   orders: {},
@@ -22,9 +22,11 @@ const AppContext = createContext<{
 })
 
 const mainReducer = (state: InitialState, action: Action) => {
-  const currentState = ordersReducer(state, action)
+  let currentState = ordersReducer(state, action)
 
-  return searchReducer(currentState, action)
+  currentState = searchReducer(currentState, action)
+
+  return combineReducer(currentState, action)
 }
 
 type AppProviderProps = {
