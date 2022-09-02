@@ -19,7 +19,9 @@ export const StatusCell: FC<StatusCellProps> = ({ status }) => {
       return <OrdersTableCell>Being prepare</OrdersTableCell>
     case EventName.DRIVER_RECEIVED:
       return <OrdersTableCell>Out for delivery</OrdersTableCell>
-    default:
+    case EventName.DELIVERED:
       return <OrdersTableCell>Delivered</OrdersTableCell>
+    default:
+      return <OrdersTableCell>Cancelled</OrdersTableCell>
   }
 }
