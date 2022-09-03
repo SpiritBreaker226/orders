@@ -1,5 +1,21 @@
 # Cloudkitchens Interview Challenge
 
+
+## To Install
+
+### Server
+
+ 1. In the terminal make sure you are in the project's root directory
+ 2. Go to the `cd server` directory
+ 3. Run `npm install`
+
+### Frontend
+
+ 1. In the terminal make sure you are in the project's root directory
+ 2. Go to the `cd frontend` directory
+ 3. Run `yarn`
+ 4. Run `cp .env.example .env`
+
 ## Background
 
 At City Storage Systems, we assist in the production and fulfillment of online food orders. In the process of creating and delivering these orders, some common workflows involve processing and displaying large amounts of order events — when orders are placed, prepared, delivered, etc. These orders and events can be displayed on interfaces used by cooks, delivery drivers, in-house engineers, and more. You will be building a (simulated) system to help facilitate this.
