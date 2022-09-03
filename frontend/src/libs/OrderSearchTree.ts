@@ -98,8 +98,15 @@ export class OrderSearchTree {
     return null
   }
 
-  insert(order: Order): ReturnValues {
+  insert(order: Order): ReturnValues | null {
     let currentNode: OrderSearchTree = this
+
+    // only blocks order with the same price and id
+    // if they have a differnt price then this will
+    // NOT update orders with same id and different price
+    if (this.getOrderByPrice(order.id, order.price)) {
+      return null
+    }
 
     while (true) {
       if (order.price < currentNode.order.price) {

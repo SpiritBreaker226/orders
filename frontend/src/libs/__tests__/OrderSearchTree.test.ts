@@ -34,8 +34,8 @@ describe('OrderSearchTree', () => {
         price: 1200,
       })
 
-      expect(treeState.currentRoot.left?.order.id).toEqual('8719234')
-      expect(treeState.currentRoot.right?.order.id).toEqual('18923')
+      expect(treeState?.currentRoot.left?.order.id).toEqual('8719234')
+      expect(treeState?.currentRoot.right?.order.id).toEqual('18923')
     })
 
     it('should return the root node', () => {
@@ -51,7 +51,7 @@ describe('OrderSearchTree', () => {
         price: 900,
       })
 
-      expect(treeState.currentRoot.order.id).toEqual('1908432')
+      expect(treeState?.currentRoot.order.id).toEqual('1908432')
     })
 
     it('should create a root node with a right nodes with the same price', () => {
@@ -67,9 +67,35 @@ describe('OrderSearchTree', () => {
         price: 1024,
       })
 
-      expect(treeState.currentRoot.order.id).toEqual('1908432')
-      expect(treeState.currentRoot.left).toBeNull()
-      expect(treeState.currentRoot.right?.order.id).toEqual('0198432')
+      expect(treeState?.currentRoot.order.id).toEqual('1908432')
+      expect(treeState?.currentRoot.left).toBeNull()
+      expect(treeState?.currentRoot.right?.order.id).toEqual('0198432')
+    })
+
+    describe('when trying to add an order already in search tree', () => {
+      it('should not add order', () => {
+        const OrderSearchTree = setUp({
+          ...defaultOrder,
+          id: '1908432',
+          price: 1024,
+        })
+
+        OrderSearchTree.insert({
+          ...defaultOrder,
+          id: '0198432',
+          price: 1024,
+          event_name: EventName.CREATED,
+        })
+
+        const treeState = OrderSearchTree.insert({
+          ...defaultOrder,
+          id: '0198432',
+          price: 1024,
+          event_name: EventName.COOKED,
+        })
+
+        expect(treeState).toBeNull()
+      })
     })
   })
 
@@ -372,14 +398,14 @@ describe('OrderSearchTree', () => {
 
       const currentTreeState = OrderSearchTree.insert({
         ...defaultOrder,
-        id: '918023',
+        id: '2345987',
         price: 30,
       })
 
       // make sure that node 1028793417890 is where it suppse being deleated
-      expect(currentTreeState.currentRoot.left?.right?.right?.order.id).toEqual(
-        '1028793417890'
-      )
+      expect(
+        currentTreeState?.currentRoot.left?.right?.right?.order.id
+      ).toEqual('1028793417890')
 
       const treeState = OrderSearchTree.remove({
         ...defaultOrder,
