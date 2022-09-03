@@ -10,8 +10,8 @@ const HeaderContainer = styled.div`
   z-index: 20;
   width: 100%;
   transition: all 0.3s linear 0s;
-  background: #f8f6eb;
-  border-bottom: 1px solid rgba(81, 81, 81, 1);
+  background: ${(props) => props.theme.background};
+  border-bottom: 1px solid ${(props) => props.theme.border};
 `
 
 const HeaderContent = styled.div`

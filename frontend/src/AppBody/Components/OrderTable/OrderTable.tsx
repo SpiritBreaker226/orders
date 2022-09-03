@@ -44,7 +44,7 @@ const OrdersTableBody = styled.tbody`
     padding: 16px 0;
     text-align: left;
     font-weight: 400;
-    border-bottom: 1px solid rgba(81, 81, 81, 1);
+    border-bottom: 1px solid ${(props) => props.theme.border};
   }
 `
 
