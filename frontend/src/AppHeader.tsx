@@ -44,7 +44,7 @@ export const AppHeader: FC = () => {
     <HeaderContainer>
       <HeaderContent>
         <Header>
-          <h1>CloudKitchens</h1>
+          <h1>Orders</h1>
 
           <Search />
         </Header>
